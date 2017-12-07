@@ -1,16 +1,25 @@
 package com.userfrontend.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.util.List;
 
 /**
  * Created by Laptop on 23.11.2017..
  */
+@Entity
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="user_id", nullable = false, updatable = false)
     private Long user_id;
     private String username;
     private String password;
     private String user_firstname;
     private String user_lastname;
+
+    @Column(name="user_email", nullable = false, unique = true)
     private String user_email;
     private String user_phone;
 
@@ -34,9 +43,17 @@ public class User {
                 '}';
     }
 
+    @OneToOne
     private MainAccount mainAccount;
+
+    @OneToOne
     private SecondaryAccount secondaryAccount;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Appointment> appointmentList;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Recipient> recipientList;
 
     public Long getUser_id() {

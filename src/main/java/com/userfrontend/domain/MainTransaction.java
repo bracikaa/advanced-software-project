@@ -1,12 +1,16 @@
 package com.userfrontend.domain;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
  * Created by Laptop on 23.11.2017..
  */
+@Entity
 public class MainTransaction {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Date maintrans_date;
     private String maintrans_description;
@@ -14,6 +18,8 @@ public class MainTransaction {
     private String maintrans_status;
     private double maintrans_amount;
     private BigDecimal maintrans_available;
+    @ManyToOne
+    @JoinColumn(name="main_account_id")
     private MainAccount mainAccount;
 
 

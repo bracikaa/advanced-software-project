@@ -1,16 +1,26 @@
 package com.userfrontend.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
 /**
  * Created by Laptop on 23.11.2017..
  */
+@Entity
 public class SecondaryAccount {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private int second_accno;
     //private double second_accbalance;
     private BigDecimal second_accbalance;
+
+    @OneToMany(mappedBy = "secondaryAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<SecondaryTransaction> secondaryTransactionList;
 
     public Long getId() {
         return id;
@@ -44,5 +54,4 @@ public class SecondaryAccount {
         this.secondaryTransactionList = secondaryTransactionList;
     }
 
-    private List<SecondaryTransaction> secondaryTransactionList;
 }

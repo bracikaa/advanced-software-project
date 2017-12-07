@@ -1,12 +1,19 @@
 package com.userfrontend.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
 /**
  * Created by Laptop on 23.11.2017..
  */
+@Entity
 public class MainAccount {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private int main_accno;
     //private double main_accbalance;
@@ -44,5 +51,7 @@ public class MainAccount {
         this.mainTransactionList = mainTransactionList;
     }
 
+    @OneToMany(mappedBy = "mainAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<MainTransaction> mainTransactionList;
 }

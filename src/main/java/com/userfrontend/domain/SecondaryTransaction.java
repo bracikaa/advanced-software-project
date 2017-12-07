@@ -1,12 +1,19 @@
 package com.userfrontend.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
  * Created by Laptop on 23.11.2017..
  */
+
+@Entity
 public class SecondaryTransaction {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Date secondtrans_date;
     private String secondtrans_description;
@@ -14,6 +21,8 @@ public class SecondaryTransaction {
     private String secondtrans_status;
     private double secondtrans_amount;
     private BigDecimal secondtrans_available;
+    @ManyToOne
+    @JoinColumn(name = "secondary_account_id")
     private SecondaryAccount secondaryAccount;
 
     public SecondaryTransaction() {
