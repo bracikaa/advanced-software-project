@@ -1,8 +1,15 @@
-The readme file for the Advanced Software Engineering Project
+# Iteration 1/2
 
-// BANK PROJECT //
+### What is this?
 
-1st iteration (22.11.2017):
-*added models
-*added resources
-*homepage working
+A project for the course Advanced Software Engineering (CS504), written in Spring and Angular
+
+### What is the end project supposed to be like?
+
+Basic bank application, with users, transactions, money accounts and appointment making funcionalities.
+
+### What has been done in this iteration
+
+After two interation the templates for the /home and /signup page have been made, and the hibernate was intergrated into spring.
+In the third implementation hopefully we can start working on some logic, considering that we already have the skeleton of the app.
+
