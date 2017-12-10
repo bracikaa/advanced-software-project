@@ -14,6 +14,7 @@ import java.util.HashSet;
  */
 @Controller
 public class HomeController {
+
     @RequestMapping("/")
     public String home() {
         return "redirect:/index";

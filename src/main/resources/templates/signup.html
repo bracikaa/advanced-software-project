@@ -19,7 +19,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" th:value="${user.user_firstname}" id="firstName" name="firstName" roleId="firstname"  placeholder="Enter your first name" required="required"/>
+                            <input type="text" class="form-control" th:value="${user.firstName}" id="firstName" name="firstName" roleId="firstname"  placeholder="Enter your first name" required="required"/>
                         </div>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" th:value="${user.user_lastname}" id="lastName" name="lastName" roleId="lastName"  placeholder="Enter your last name" required="required"/>
+                            <input type="text" class="form-control" th:value="${user.lastName}" id="lastName" name="lastName" roleId="lastName"  placeholder="Enter your last name" required="required"/>
                         </div>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-phone fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" th:value="${user.user_phone}" id="phone" name="phone" roleId="phone"  placeholder="xxx-xxx-xxxx" required="required"/>
+                            <input type="text" class="form-control" th:value="${user.phone}" id="phone" name="phone" roleId="phone"  placeholder="xxx-xxx-xxxx" required="required"/>
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" th:value="${user.user_email}" id="email" name="email" roleId="email"  placeholder="Enter your Email" required="required"/>
+                            <input type="text" class="form-control" th:value="${user.email}" id="email" name="email" roleId="email"  placeholder="Enter your Email" required="required"/>
                         </div>
                     </div>
                 </div>
@@ -73,7 +73,6 @@
                         </div>
                         <div class="checkbox">
                             <label>
-                                <!-- toggleShowPassword -->
                                 <input id="showPassword" type="checkbox" />Show Password
                             </label>
                         </div>

@@ -4,20 +4,21 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Created by Laptop on 23.11.2017..
+ * Created by Laptop on 10.12.2017..
  */
 @Entity
 public class Appointment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Date app_date;
-    private String app_location;
-    private String app_description;
-    private boolean app_confirmed;
+    private Date date;
+    private String location;
+    private String description;
+    private boolean confirmed;
 
     @ManyToOne
-    @JoinColumn(name = "col_user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Long getId() {
@@ -28,36 +29,36 @@ public class Appointment {
         this.id = id;
     }
 
-    public Date getApp_date() {
-        return app_date;
+    public Date getDate() {
+        return date;
     }
 
-    public void setApp_date(Date app_date) {
-        this.app_date = app_date;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public String getApp_location() {
-        return app_location;
+    public String getLocation() {
+        return location;
     }
 
-    public void setApp_location(String app_location) {
-        this.app_location = app_location;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public String getApp_description() {
-        return app_description;
+    public String getDescription() {
+        return description;
     }
 
-    public void setApp_description(String app_description) {
-        this.app_description = app_description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public boolean isApp_confirmed() {
-        return app_confirmed;
+    public boolean isConfirmed() {
+        return confirmed;
     }
 
-    public void setApp_confirmed(boolean app_confirmed) {
-        this.app_confirmed = app_confirmed;
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
     }
 
     public User getUser() {
@@ -66,17 +67,5 @@ public class Appointment {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    @Override
-    public String toString() {
-        return "Appointment{" +
-                "id=" + id +
-                ", app_date=" + app_date +
-                ", app_location='" + app_location + '\'' +
-                ", app_description='" + app_description + '\'' +
-                ", app_confirmed=" + app_confirmed +
-                ", user=" + user +
-                '}';
     }
 }

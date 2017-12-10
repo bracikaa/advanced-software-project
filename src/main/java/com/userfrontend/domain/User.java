@@ -5,49 +5,28 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * Created by Laptop on 23.11.2017..
- */
 @Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="user_id", nullable = false, updatable = false)
-    private Long user_id;
+    @Column(name = "userId", nullable = false, updatable = false)
+    private Long userId;
+
     private String username;
     private String password;
-    private String user_firstname;
-    private String user_lastname;
-
-    @Column(name="user_email", nullable = false, unique = true)
-    private String user_email;
-    private String user_phone;
+    private String firstName;
+    private String lastName;
+    @Column(name="email", nullable = false, unique = true)
+    private String email;
+    private String phone;
 
     private boolean enabled = true;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "user_id=" + user_id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", user_firstname='" + user_firstname + '\'' +
-                ", user_lastname='" + user_lastname + '\'' +
-                ", user_email='" + user_email + '\'' +
-                ", user_phone='" + user_phone + '\'' +
-                ", enabled=" + enabled +
-                ", mainAccount=" + mainAccount +
-                ", secondaryAccount=" + secondaryAccount +
-                ", appointmentList=" + appointmentList +
-                ", recipientList=" + recipientList +
-                '}';
-    }
+    @OneToOne
+    private PrimaryAccount primaryAccount;
 
     @OneToOne
-    private MainAccount mainAccount;
-
-    @OneToOne
-    private SecondaryAccount secondaryAccount;
+    private SavingsAccount savingsAccount;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
@@ -56,12 +35,12 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Recipient> recipientList;
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -80,36 +59,36 @@ public class User {
         this.password = password;
     }
 
-    public String getUser_firstname() {
-        return user_firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUser_firstname(String user_firstname) {
-        this.user_firstname = user_firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getUser_lastname() {
-        return user_lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setUser_lastname(String user_lastname) {
-        this.user_lastname = user_lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getUser_email() {
-        return user_email;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUser_email(String user_email) {
-        this.user_email = user_email;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getUser_phone() {
-        return user_phone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setUser_phone(String user_phone) {
-        this.user_phone = user_phone;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public boolean isEnabled() {
@@ -120,20 +99,20 @@ public class User {
         this.enabled = enabled;
     }
 
-    public MainAccount getMainAccount() {
-        return mainAccount;
+    public PrimaryAccount getPrimaryAccount() {
+        return primaryAccount;
     }
 
-    public void setMainAccount(MainAccount mainAccount) {
-        this.mainAccount = mainAccount;
+    public void setPrimaryAccount(PrimaryAccount primaryAccount) {
+        this.primaryAccount = primaryAccount;
     }
 
-    public SecondaryAccount getSecondaryAccount() {
-        return secondaryAccount;
+    public SavingsAccount getSavingsAccount() {
+        return savingsAccount;
     }
 
-    public void setSecondaryAccount(SecondaryAccount secondaryAccount) {
-        this.secondaryAccount = secondaryAccount;
+    public void setSavingsAccount(SavingsAccount savingsAccount) {
+        this.savingsAccount = savingsAccount;
     }
 
     public List<Appointment> getAppointmentList() {

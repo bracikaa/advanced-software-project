@@ -10,7 +10,7 @@
         }, options);
 
         var control = $(settings.control);
-        var field = $(settings.field);
+        var field = $(settings.field)
 
         control.bind('click', function () {
             if (control.is(':checked')) {

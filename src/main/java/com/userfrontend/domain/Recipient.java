@@ -5,18 +5,20 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 /**
- * Created by Laptop on 23.11.2017..
+ * Created by Laptop on 10.12.2017..
  */
+
 @Entity
 public class Recipient {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String recip_name;
-    private String recip_email;
-    private String recip_phone;
-    private String recip_accno;
-    private String recip_description;
+    private String name;
+    private String email;
+    private String phone;
+    private String accountNumber;
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -31,44 +33,44 @@ public class Recipient {
         this.id = id;
     }
 
-    public String getRecip_name() {
-        return recip_name;
+    public String getName() {
+        return name;
     }
 
-    public void setRecip_name(String recip_name) {
-        this.recip_name = recip_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getRecip_email() {
-        return recip_email;
+    public String getEmail() {
+        return email;
     }
 
-    public void setRecip_email(String recip_email) {
-        this.recip_email = recip_email;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getRecip_phone() {
-        return recip_phone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setRecip_phone(String recip_phone) {
-        this.recip_phone = recip_phone;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getRecip_accno() {
-        return recip_accno;
+    public String getAccountNumber() {
+        return accountNumber;
     }
 
-    public void setRecip_accno(String recip_accno) {
-        this.recip_accno = recip_accno;
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
-    public String getRecip_description() {
-        return recip_description;
+    public String getDescription() {
+        return description;
     }
 
-    public void setRecip_description(String recip_description) {
-        this.recip_description = recip_description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public User getUser() {
