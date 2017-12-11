@@ -1,5 +1,13 @@
 # Iteration 3
 
+## How it is going?
+
+Well, the database is connected to the application, and the fun can start now.
+
+## Problems?
+
+A lot of them, starting with dependency inaccuracies, missing beans, but I'm working my way.
+
 
 # Iteration 1/2
 
