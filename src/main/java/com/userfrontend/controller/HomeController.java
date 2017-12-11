@@ -1,6 +1,8 @@
 package com.userfrontend.controller;
 
 import com.userfrontend.domain.User;
+import com.userfrontend.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +16,9 @@ import java.util.HashSet;
  */
 @Controller
 public class HomeController {
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/")
     public String home() {
@@ -33,25 +38,23 @@ public class HomeController {
     }
 
     @RequestMapping(value="/signup", method = RequestMethod.POST)
-    public void signupUser(@ModelAttribute("user") User user, Model model)
+    public String signupUser(@ModelAttribute("user") User user, Model model)
     {
-//        if(userService.checkUserExists(user.getUsername(), user.getUser_email())) {
-//            if(userService.checkEmailExists(user.getUser_email())) {
-//                model.addAttribute("emailExists", true);
-//            }
-//
-//            if(userService.checkUsernameExists(user.getUsername())) {
-//                model.addAttribute("usernameExists", true);
-//            }
-//
-//            return "signup";
-//        } else {
-//            Set<UserRole> userRoles = new HashSet<>;
-//            user.roles.add(new UserRole(user, roleDao.findByName("USER")));
-//            userService.createUser(user, userRoles);
-//
-//            return "redirect:/";
-//        }
+        if(userService.checkUserExists(user.getUsername(), user.getEmail())) {
+            if(userService.checkEmailExists(user.getEmail())) {
+                model.addAttribute("emailExists", true);
+            }
+
+            if(userService.checkUsernameExists(user.getUsername())) {
+                model.addAttribute("usernameExists", true);
+            }
+
+            return "signup";
+        } else {
+            userService.save(user);
+
+            return "redirect:/";
+        }
 
     }
 
