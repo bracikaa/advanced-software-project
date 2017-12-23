@@ -1,5 +1,6 @@
 package com.userfrontend.config;
 
+import com.userfrontend.service.UserServiceImpl.UserSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private Environment env;
 
     @Autowired
-    //private UserSecurityService userSecurityService;
+    private UserSecurityService userSecurityService;
 
     private static final String SALT = "salt"; // Salt should be protected carefully
 
@@ -69,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 //    	 auth.inMemoryAuthentication().withUser("user").password("password").roles("USER"); //This is in-memory authentication
-  //      auth.userDetailsService(userSecurityService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userSecurityService).passwordEncoder(passwordEncoder());
     }
 
 

@@ -1,6 +1,8 @@
 package com.userfrontend.controller;
 
+import com.userfrontend.Dao.RoleDao;
 import com.userfrontend.domain.User;
+import com.userfrontend.domain.security.UserRole;
 import com.userfrontend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Laptop on 23.11.2017..
@@ -19,6 +22,9 @@ public class HomeController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RoleDao roleDao;
 
     @RequestMapping("/")
     public String home() {
@@ -37,25 +43,28 @@ public class HomeController {
         return "signup";
     }
 
-    @RequestMapping(value="/signup", method = RequestMethod.POST)
-    public String signupUser(@ModelAttribute("user") User user, Model model)
-    {
-        if(userService.checkUserExists(user.getUsername(), user.getEmail())) {
-            if(userService.checkEmailExists(user.getEmail())) {
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    public String signupPost(@ModelAttribute("user") User user,  Model model) {
+
+        if(userService.checkUserExists(user.getUsername(), user.getEmail()))  {
+
+            if (userService.checkEmailExists(user.getEmail())) {
                 model.addAttribute("emailExists", true);
             }
 
-            if(userService.checkUsernameExists(user.getUsername())) {
+            if (userService.checkUsernameExists(user.getUsername())) {
                 model.addAttribute("usernameExists", true);
             }
 
             return "signup";
         } else {
-            userService.save(user);
+            Set<UserRole> userRoles = new HashSet<>();
+            userRoles.add(new UserRole(user, roleDao.findByName("ROLE_USER")));
+
+            userService.createUser(user, userRoles);
 
             return "redirect:/";
         }
-
     }
 
 }
