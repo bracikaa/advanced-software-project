@@ -6,6 +6,7 @@ import java.util.Date;
 
 import org.omg.IOP.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import com.userfrontend.Dao.PrimaryAccountDao;
@@ -57,6 +58,54 @@ public class AccountServiceImpl implements AccountService {
 
     private int accountGen() {
         return ++nextAccountNumber;
+    }
+
+    public void deposit(String accountType, double amount, Principal principal)
+    {
+        User user = userService.findByUsername(principal.getName());
+
+        if(accountType.equalsIgnoreCase("Primary")) {
+            PrimaryAccount primaryAccount = user.getPrimaryAccount();
+            primaryAccount.setAccountBalance(primaryAccount.getAccountBalance().add(new BigDecimal(amount)));
+            primaryAccountDao.save(primaryAccount);
+
+            Date date = new Date();
+            PrimaryTransaction primaryTransaction = new PrimaryTransaction(date, "Deposit to Primary Account", "Account", "Finished", amount, primaryAccount.getAccountBalance(), primaryAccount);
+
+        } else if(accountType.equalsIgnoreCase("Savings"))
+        {
+            SavingsAccount savingsAccount = user.getSavingsAccount();
+            savingsAccount.setAccountBalance(savingsAccount.getAccountBalance().add(new BigDecimal(amount)));
+            savingsAccountDao.save(savingsAccount);
+
+            Date date = new Date();
+            SavingsTransaction savingsTransaction = new SavingsTransaction(date, "Deposit to Savings Account", "Account", "Finished", amount, savingsAccount.getAccountBalance(), savingsAccount);
+
+        }
+    }
+
+    public void withdraw(String accountType, double amount, Principal principal)
+    {
+        User user = userService.findByUsername(principal.getName());
+
+        if(accountType.equalsIgnoreCase("Primary")) {
+            PrimaryAccount primaryAccount = user.getPrimaryAccount();
+            primaryAccount.setAccountBalance(primaryAccount.getAccountBalance().subtract(new BigDecimal(amount)));
+            primaryAccountDao.save(primaryAccount);
+
+            Date date = new Date();
+            PrimaryTransaction primaryTransaction = new PrimaryTransaction(date, "Withdrawal from Primary Account", "Account", "Finished", amount, primaryAccount.getAccountBalance(), primaryAccount);
+
+        } else if(accountType.equalsIgnoreCase("Savings")) {
+            SavingsAccount savingsAccount = user.getSavingsAccount();
+            savingsAccount.setAccountBalance(savingsAccount.getAccountBalance().subtract(new BigDecimal(amount)));
+            savingsAccountDao.save(savingsAccount);
+
+            Date date = new Date();
+            SavingsTransaction savingsTransaction = new SavingsTransaction(date, "Withdrawal from Savings Account", "Account", "Finished", amount, savingsAccount.getAccountBalance(), savingsAccount);
+
+
+        }
     }
 
 
