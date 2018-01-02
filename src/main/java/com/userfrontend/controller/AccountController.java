@@ -1,9 +1,8 @@
 package com.userfrontend.controller;
 
-import com.userfrontend.domain.PrimaryAccount;
-import com.userfrontend.domain.SavingsAccount;
-import com.userfrontend.domain.User;
+import com.userfrontend.domain.*;
 import com.userfrontend.service.AccountService;
+import com.userfrontend.service.TransactionService;
 import com.userfrontend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.security.Principal;
+import java.util.List;
 
 /**
  * Created by Laptop on 23.12.2017..
@@ -27,13 +27,18 @@ public class AccountController {
     @Autowired
     AccountService accountService;
 
+    @Autowired
+    TransactionService transactionService;
+
     @RequestMapping("/primaryAccount")
     public String primaryAccount(Model model, Principal principal)
     {
+        List<PrimaryTransaction> primaryTransactionList = transactionService.findPrimaryTransaction(principal.getName());
         User user = userService.findByUsername(principal.getName());
         PrimaryAccount primaryAccount = user.getPrimaryAccount();
 
         model.addAttribute("primaryAccount", primaryAccount);
+        model.addAttribute("primaryTransactionList", primaryTransactionList);
 
         return "primaryAccount";
     }
@@ -41,10 +46,13 @@ public class AccountController {
     @RequestMapping("/savingsAccount")
     public String savingsAccount(Model model, Principal principal)
     {
+        List<SavingsTransaction> savingsAccountList = transactionService.findSavingsTransaction(principal.getName());
         User user = userService.findByUsername(principal.getName());
         SavingsAccount savingsAccount = user.getSavingsAccount();
 
         model.addAttribute("savingsSavings", savingsAccount);
+        model.addAttribute("savingsTransactionList", savingsAccountList);
+
 
         return "savingsAccount";
     }

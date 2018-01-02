@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.Date;
 
-import org.omg.IOP.TransactionService;
+import com.userfrontend.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -33,8 +33,8 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private UserService userService;
 
-    //@Autowired
-    //private TransactionService transactionService;
+    @Autowired
+    private TransactionService transactionService;
 
     public PrimaryAccount createPrimaryAccount() {
         PrimaryAccount primaryAccount = new PrimaryAccount();
@@ -71,6 +71,7 @@ public class AccountServiceImpl implements AccountService {
 
             Date date = new Date();
             PrimaryTransaction primaryTransaction = new PrimaryTransaction(date, "Deposit to Primary Account", "Account", "Finished", amount, primaryAccount.getAccountBalance(), primaryAccount);
+            transactionService.savePrimaryDepositTransaction(primaryTransaction);
 
         } else if(accountType.equalsIgnoreCase("Savings"))
         {
@@ -80,6 +81,7 @@ public class AccountServiceImpl implements AccountService {
 
             Date date = new Date();
             SavingsTransaction savingsTransaction = new SavingsTransaction(date, "Deposit to Savings Account", "Account", "Finished", amount, savingsAccount.getAccountBalance(), savingsAccount);
+            transactionService.saveSavingsDepositTransaction(savingsTransaction);
 
         }
     }
